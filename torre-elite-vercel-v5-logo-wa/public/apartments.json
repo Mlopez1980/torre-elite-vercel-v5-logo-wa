@@ -1,0 +1,242 @@
+[
+  {
+    "id": "1A",
+    "nivel": 1,
+    "area_m2": 82.95,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "1B",
+    "nivel": 1,
+    "area_m2": 91.75,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "1C",
+    "nivel": 1,
+    "area_m2": 46.0,
+    "habitaciones": 1,
+    "precio_usd": 117000.0,
+    "disponible": true
+  },
+  {
+    "id": "1D",
+    "nivel": 1,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "1E",
+    "nivel": 1,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": 189129.0,
+    "disponible": true
+  },
+  {
+    "id": "1F",
+    "nivel": 1,
+    "area_m2": 44.55,
+    "habitaciones": 1,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "2A",
+    "nivel": 2,
+    "area_m2": 82.95,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "2B",
+    "nivel": 2,
+    "area_m2": 91.75,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "2C",
+    "nivel": 2,
+    "area_m2": 46.0,
+    "habitaciones": 1,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "2D",
+    "nivel": 2,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": 193240.5,
+    "disponible": true
+  },
+  {
+    "id": "2E",
+    "nivel": 2,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": 193240.5,
+    "disponible": true
+  },
+  {
+    "id": "2F",
+    "nivel": 2,
+    "area_m2": 44.55,
+    "habitaciones": 1,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "3A",
+    "nivel": 3,
+    "area_m2": 82.95,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "3B",
+    "nivel": 3,
+    "area_m2": 91.75,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "3C",
+    "nivel": 3,
+    "area_m2": 46.0,
+    "habitaciones": 1,
+    "precio_usd": 119340.0,
+    "disponible": true
+  },
+  {
+    "id": "3D",
+    "nivel": 3,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "3E",
+    "nivel": 3,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": 197352.0,
+    "disponible": true
+  },
+  {
+    "id": "3F",
+    "nivel": 3,
+    "area_m2": 44.55,
+    "habitaciones": 1,
+    "precio_usd": 117000.0,
+    "disponible": true
+  },
+  {
+    "id": "4A",
+    "nivel": 4,
+    "area_m2": 82.95,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "4B",
+    "nivel": 4,
+    "area_m2": 91.75,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "4C",
+    "nivel": 4,
+    "area_m2": 46.0,
+    "habitaciones": 1,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "4D",
+    "nivel": 4,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": 205575.0,
+    "disponible": true
+  },
+  {
+    "id": "4E",
+    "nivel": 4,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": 205575.0,
+    "disponible": true
+  },
+  {
+    "id": "4F",
+    "nivel": 4,
+    "area_m2": 44.55,
+    "habitaciones": 1,
+    "precio_usd": 121680.0,
+    "disponible": true
+  },
+  {
+    "id": "5A",
+    "nivel": 5,
+    "area_m2": 82.95,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "5B",
+    "nivel": 5,
+    "area_m2": 91.75,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "5C",
+    "nivel": 5,
+    "area_m2": 46.0,
+    "habitaciones": 1,
+    "precio_usd": 126360.0,
+    "disponible": true
+  },
+  {
+    "id": "5D",
+    "nivel": 5,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": null,
+    "disponible": false
+  },
+  {
+    "id": "5E",
+    "nivel": 5,
+    "area_m2": 82.79,
+    "habitaciones": 2,
+    "precio_usd": 205575.0,
+    "disponible": true
+  },
+  {
+    "id": "5F",
+    "nivel": 5,
+    "area_m2": 44.55,
+    "habitaciones": 1,
+    "precio_usd": 126360.0,
+    "disponible": true
+  }
+]
