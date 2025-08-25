@@ -168,7 +168,15 @@ export default function App(){
                   {a.disponible ? (
                     <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
                       <button className="button" onClick={()=>openPlano(a)}>Ver plano</button>
-                      <a className="button" href={`https://wa.me/50492513691?text=Hola,%20me%20interesa%20el%20apartamento%20${encodeURIComponent(a.id)}`} target="_blank" rel="noopener">Quiero este</a>
+                     <a
+  className="button"
+  href={`https://wa.me/50492513691?text=${encodeURIComponent(`Hola, me interesa el apartamento ${a.id} de Torre Élite`)}`}
+  target="_blank"
+  rel="noopener"
+>
+  Quiero este
+</a>
+
                     </div>
                   ) : null}
                 </div>
