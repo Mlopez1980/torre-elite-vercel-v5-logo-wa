@@ -170,7 +170,7 @@ export default function App(){
                       <button className="button" onClick={()=>openPlano(a)}>Ver plano</button>
                      <a
   className="button"
-  href={`https://wa.me/50492513691?text=${encodeURIComponent(`Hola, me interesa el apartamento ${a.id} de Torre Élite`)}`}
+  href={`https://wa.me/50499903980?text=${encodeURIComponent(`Hola, me interesa el apartamento ${a.id} de Torre Élite`)}`}
   target="_blank"
   rel="noopener"
 >
