@@ -236,7 +236,7 @@
     "nivel": 5,
     "area_m2": 44.55,
     "habitaciones": 1,
-    "precio_usd": 126360.0,
-    "disponible": true
+    "precio_usd": null,
+    "disponible": false
   }
 ]
