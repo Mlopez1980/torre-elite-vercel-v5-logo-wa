@@ -132,8 +132,8 @@
     "nivel": 3,
     "area_m2": 82.79,
     "habitaciones": 2,
-    "precio_usd": 197352.0,
-    "disponible": true
+    "precio_usd": null,
+    "disponible": false
   },
   {
     "id": "3F",
