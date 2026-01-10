@@ -181,7 +181,7 @@
     "area_m2": 82.79,
     "habitaciones": 2,
     "precio_usd": 205575.0,
-    "disponible": true
+    "disponible": false
   },
   {
     "id": "4F",
