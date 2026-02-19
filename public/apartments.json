@@ -117,7 +117,7 @@
     "area_m2": 46.0,
     "habitaciones": 1,
     "precio_usd": 125000,
-    "disponible": false
+    "disponible": true
   },
   {
     "id": "3D",
