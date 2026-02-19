@@ -116,7 +116,7 @@
     "nivel": 3,
     "area_m2": 46.0,
     "habitaciones": 1,
-    "precio_usd": null,
+    "precio_usd": 125000,
     "disponible": false
   },
   {
@@ -181,7 +181,7 @@
     "area_m2": 82.79,
     "habitaciones": 2,
     "precio_usd": 205575.0,
-    "disponible": false
+    "disponible": true
   },
   {
     "id": "4F",
