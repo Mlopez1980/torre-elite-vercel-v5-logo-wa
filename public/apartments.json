@@ -36,16 +36,16 @@
     "nivel": 1,
     "area_m2": 82.79,
     "habitaciones": 2,
-    "precio_usd": null,
-    "disponible": false
+    "precio_usd": 190000,
+    "disponible": true
   },
   {
     "id": "1F",
     "nivel": 1,
     "area_m2": 44.55,
     "habitaciones": 1,
-    "precio_usd": null,
-    "disponible": false
+    "precio_usd": 117500,
+    "disponible": true
   },
   {
     "id": "2A",
