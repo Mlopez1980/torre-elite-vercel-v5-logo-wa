@@ -20,8 +20,8 @@
     "nivel": 1,
     "area_m2": 46.0,
     "habitaciones": 1,
-    "precio_usd": 117000.0,
-    "disponible": true
+    "precio_usd": null,
+    "disponible": false
   },
   {
     "id": "1D",
@@ -36,24 +36,24 @@
     "nivel": 1,
     "area_m2": 82.79,
     "habitaciones": 2,
-    "precio_usd": null,
-    "disponible": false
+    "precio_usd": 190000,
+    "disponible": true
   },
   {
     "id": "1F",
     "nivel": 1,
     "area_m2": 44.55,
     "habitaciones": 1,
-    "precio_usd": null,
-    "disponible": false
+    "precio_usd": 117500,
+    "disponible": true
   },
   {
     "id": "2A",
     "nivel": 2,
     "area_m2": 82.95,
     "habitaciones": 2,
-    "precio_usd": null,
-    "disponible": false
+    "precio_usd": 195000,
+    "disponible": true
   },
   {
     "id": "2B",
