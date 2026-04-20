@@ -78,6 +78,7 @@
     "habitaciones": 2,
     "precio_usd": null,
     "disponible": false
+    "estado": "entregado"
   },
   {
     "id": "2E",
