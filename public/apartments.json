@@ -64,7 +64,8 @@
     "area_m2": 81.75,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": false,
+    "estado": "entregado"
   },
   {
     "id": "2C",
