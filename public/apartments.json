@@ -13,7 +13,8 @@
     "area_m2": 81.75,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": false,
+    "estado": "consulta_disponibilidad"
   },
   {
     "id": "1C",
@@ -29,7 +30,8 @@
     "area_m2": 82.79,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": false,
+    "estado": "consulta_disponibilidad"
   },
   {
     "id": "1E",
