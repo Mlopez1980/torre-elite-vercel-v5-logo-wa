@@ -14,6 +14,7 @@
     "habitaciones": 2,
     "precio_usd": null,
     "disponible": false
+    "estado": "consulta_disponibilidad"
   },
   {
     "id": "1C",
@@ -30,6 +31,7 @@
     "habitaciones": 2,
     "precio_usd": null,
     "disponible": false
+    "estado": "consulta_disponibilidad"
   },
   {
     "id": "1E",
