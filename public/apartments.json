@@ -5,7 +5,8 @@
     "area_m2": 82.95,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": false,
+    "estado": "entregado"
   },
   {
     "id": "1B",
@@ -79,7 +80,8 @@
     "area_m2": 82.79,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": false,
+    "estado": "entregado"
   },
   {
     "id": "2E",
@@ -103,7 +105,8 @@
     "area_m2": 82.95,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": false,
+    "estado": "entregado"
   },
   {
     "id": "3B",
@@ -111,7 +114,8 @@
     "area_m2": 81.75,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": false,
+    "estado": "entregado"
   },
   {
     "id": "3C",
@@ -199,7 +203,8 @@
     "area_m2": 82.95,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": false,
+    "estado": "entregado"
   },
   {
     "id": "5B",
