@@ -150,7 +150,8 @@
     "area_m2": 44.55,
     "habitaciones": 1,
     "precio_usd": null,
-    "disponible": "reservado"
+    "disponible": false,
+    "estado": "reservado"
   },
   {
     "id": "4A",
