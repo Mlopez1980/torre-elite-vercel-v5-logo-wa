@@ -98,7 +98,7 @@
     "area_m2": 44.55,
     "habitaciones": 1,
     "precio_usd": null,
-    "disponible": false
+    "disponible": "entregado"
   },
   {
     "id": "3A",
@@ -125,7 +125,7 @@
     "habitaciones": 1,
     "precio_usd": 123500,
     "disponible": false,
-    "estado": "consulta_disponibilidad"
+    "estado": "reservado"
   },
   {
     "id": "3D",
@@ -133,7 +133,7 @@
     "area_m2": 82.79,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": "entregado"
   },
   {
     "id": "3E",
@@ -149,7 +149,7 @@
     "area_m2": 44.55,
     "habitaciones": 1,
     "precio_usd": null,
-    "disponible": false
+    "disponible": "reservado"
   },
   {
     "id": "4A",
@@ -157,7 +157,7 @@
     "area_m2": 82.95,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": "entregado"
   },
   {
     "id": "4B",
@@ -165,7 +165,7 @@
     "area_m2": 81.75,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": "entregado"
   },
   {
     "id": "4C",
@@ -173,7 +173,7 @@
     "area_m2": 46.0,
     "habitaciones": 1,
     "precio_usd": null,
-    "disponible": false
+    "disponible": "entregado"
   },
   {
     "id": "4D",
@@ -215,7 +215,7 @@
     "area_m2": 81.75,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": "entregado"
   },
   {
     "id": "5C",
@@ -223,7 +223,7 @@
     "area_m2": 46.0,
     "habitaciones": 1,
     "precio_usd": null,
-    "disponible": false
+    "disponible": true
   },
   {
     "id": "5D",
@@ -231,7 +231,7 @@
     "area_m2": 82.79,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": false
+    "disponible": "entregado"
   },
   {
     "id": "5E",
@@ -247,6 +247,6 @@
     "area_m2": 44.55,
     "habitaciones": 1,
     "precio_usd": null,
-    "disponible": false
+    "disponible": "entregado"
   }
 ]
