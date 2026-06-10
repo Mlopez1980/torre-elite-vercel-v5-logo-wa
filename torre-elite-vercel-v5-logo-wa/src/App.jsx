@@ -55,7 +55,7 @@ function normalizeStatus(apartment) {
   return apartment?.disponible ? 'disponible' : 'reservado'
 }
 
-export default function App(){
+export default function App() {
   const [data, setData] = useState([])
   const [error, setError] = useState('')
   const [search, setSearch] = useState('')
@@ -65,31 +65,34 @@ export default function App(){
   const [areaMax, setAreaMax] = useState('')
   const [estado, setEstado] = useState('')
   const [selectedLevel, setSelectedLevel] = useState('')
-  const [modal, setModal] = useState({open:false, id:'', src:'', zoom:1, x:0, y:0})
+  const [modal, setModal] = useState({ open: false, id: '', src: '', zoom: 1, x: 0, y: 0 })
+  const [lastTap, setLastTap] = useState(0)
 
-  useEffect(()=>{
-    async function load(){
-      const base = (import.meta.env.BASE_URL || '/')
+  useEffect(() => {
+    async function load() {
+      const base = import.meta.env.BASE_URL || '/'
       const candidates = [base + 'apartments.json', '/apartments.json', 'apartments.json']
       let lastErr = null
 
-      for(const url of candidates){
+      for (const url of candidates) {
         try {
-          const res = await fetch(url, {cache:'no-cache'})
-          if(!res.ok) {
+          const res = await fetch(url, { cache: 'no-cache' })
+
+          if (!res.ok) {
             lastErr = new Error(`HTTP ${res.status} on ${url}`)
             continue
           }
 
           const json = await res.json()
-          if(Array.isArray(json)){
+
+          if (Array.isArray(json)) {
             setData(json)
             setError('')
             return
           } else {
             lastErr = new Error(`Formato invalido en ${url}`)
           }
-        } catch(e){
+        } catch (e) {
           lastErr = e
         }
       }
@@ -101,7 +104,7 @@ export default function App(){
   }, [])
 
   const niveles = useMemo(
-    () => Array.from(new Set(data.map(a => a.nivel))).sort((a,b)=>a-b),
+    () => Array.from(new Set(data.map(a => a.nivel))).sort((a, b) => a - b),
     [data]
   )
 
@@ -109,61 +112,62 @@ export default function App(){
     const q = search.trim().toLowerCase()
     const statusKey = normalizeStatus(a)
 
-    if(q){
+    if (q) {
       const hay = (a.id + ' ' + (a.descripcion || '')).toLowerCase()
-      if(!hay.includes(q)) return false
+      if (!hay.includes(q)) return false
     }
 
-    if(nivelSelect && String(a.nivel) !== String(nivelSelect)) return false
-    if(selectedLevel && String(a.nivel) !== String(selectedLevel)) return false
-    if(habs && String(a.habitaciones) !== String(habs)) return false
+    if (nivelSelect && String(a.nivel) !== String(nivelSelect)) return false
+    if (selectedLevel && String(a.nivel) !== String(selectedLevel)) return false
+    if (habs && String(a.habitaciones) !== String(habs)) return false
 
     const amin = parseFloat(areaMin)
-    if(!Number.isNaN(amin) && a.area_m2 < amin) return false
+    if (!Number.isNaN(amin) && a.area_m2 < amin) return false
 
     const amax = parseFloat(areaMax)
-    if(!Number.isNaN(amax) && a.area_m2 > amax) return false
+    if (!Number.isNaN(amax) && a.area_m2 > amax) return false
 
-    if(estado && statusKey !== estado) return false
+    if (estado && statusKey !== estado) return false
 
     return true
   }), [data, search, nivelSelect, selectedLevel, habs, areaMin, areaMax, estado])
 
-  function formatUSD(v){
+  function formatUSD(v) {
     if (v === null || v === undefined || Number.isNaN(v)) return '—'
+
     try {
       return new Intl.NumberFormat('es-HN', {
-        style:'currency',
-        currency:'USD',
-        minimumFractionDigits:2
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
       }).format(v)
     } catch {
       return `$${v}`
     }
   }
 
-  function openPlano(a){
+  function openPlano(a) {
     const src = a.plano ? ('/' + a.plano) : ('/planos/' + a.id + '.png')
-    setModal({open:true, id:a.id, src, zoom:1, x:0, y:0})
+    setModal({ open: true, id: a.id, src, zoom: 1, x: 0, y: 0 })
   }
 
-  function closePlano(){
-    setModal(m => ({...m, open:false}))
+  function closePlano() {
+    setModal(m => ({ ...m, open: false }))
   }
 
-  function zoomIn(){
-    setModal(m => ({...m, zoom: Math.min(m.zoom + 0.1, 3)}))
+  function zoomIn() {
+    setModal(m => ({ ...m, zoom: Math.min(m.zoom + 0.1, 3) }))
   }
 
-  function zoomOut(){
-    setModal(m => ({...m, zoom: Math.max(m.zoom - 0.1, 0.5)}))
+  function zoomOut() {
+    setModal(m => ({ ...m, zoom: Math.max(m.zoom - 0.1, 0.5) }))
   }
 
-  function onPointerDown(e){
+  function onPointerDown(e) {
     const startX = e.clientX - modal.x
     const startY = e.clientY - modal.y
 
-    function move(ev){
+    function move(ev) {
       setModal(m => ({
         ...m,
         x: ev.clientX - startX,
@@ -171,7 +175,7 @@ export default function App(){
       }))
     }
 
-    function up(){
+    function up() {
       window.removeEventListener('pointermove', move)
       window.removeEventListener('pointerup', up)
     }
@@ -180,11 +184,10 @@ export default function App(){
     window.addEventListener('pointerup', up)
   }
 
-  const [lastTap, setLastTap] = useState(0)
-
-  function onClickImg(){
+  function onClickImg() {
     const now = Date.now()
-    if(now - lastTap < 300){
+
+    if (now - lastTap < 300) {
       setModal(m => ({
         ...m,
         zoom: m.zoom >= 2 ? 1 : Math.min(m.zoom + 0.5, 3),
@@ -192,20 +195,105 @@ export default function App(){
         y: 0
       }))
     }
+
     setLastTap(now)
   }
 
   return (
     <>
+      <style>{`
+        .unit-card-fixed {
+          display: grid !important;
+          grid-template-columns: minmax(0, 1fr) 150px;
+          gap: 18px;
+          align-items: center;
+        }
+
+        .unit-info-fixed {
+          min-width: 0;
+        }
+
+        .unit-header-fixed {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .unit-details-fixed {
+          margin-top: 8px;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 6px 14px;
+          font-size: 14px;
+        }
+
+        .unit-price-fixed {
+          grid-column: 1 / -1;
+        }
+
+        .unit-price-value-fixed {
+          white-space: nowrap;
+        }
+
+        .unit-actions-fixed {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+
+        .unit-buttons-fixed {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          align-items: flex-end;
+        }
+
+        .unit-buttons-fixed .button,
+        .unit-actions-fixed .button {
+          white-space: nowrap;
+        }
+
+        @media (max-width: 700px) {
+          .unit-card-fixed {
+            grid-template-columns: 1fr;
+          }
+
+          .unit-actions-fixed {
+            justify-content: flex-start;
+          }
+
+          .unit-buttons-fixed {
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
+          }
+
+          .unit-details-fixed {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 420px) {
+          .unit-details-fixed {
+            grid-template-columns: 1fr;
+          }
+
+          .unit-price-fixed {
+            grid-column: auto;
+          }
+        }
+      `}</style>
+
       <div className="header">
         <div className="container">
-          <div style={{display:"flex",alignItems:"center",gap:12}}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <img
               src="/logo-honduras-constructores.png"
               alt="Honduras Constructores"
-              style={{height:40}}
+              style={{ height: 40 }}
             />
-            <h1 style={{margin:0}}>Torre Élite · Disponibilidad de apartamentos</h1>
+            <h1 style={{ margin: 0 }}>Torre Élite · Disponibilidad de apartamentos</h1>
           </div>
         </div>
       </div>
@@ -213,11 +301,11 @@ export default function App(){
       <div className="container">
 
         {error && (
-          <div className="card" style={{borderColor:'#fecaca', background:'#fff1f2'}}>
+          <div className="card" style={{ borderColor: '#fecaca', background: '#fff1f2' }}>
             <div>
-              <div style={{fontWeight:700, marginBottom:6}}>No se pudieron cargar los datos</div>
-              <div style={{color:'#6b7280', fontSize:14}}>{error}</div>
-              <div style={{marginTop:8, fontSize:13}}>
+              <div style={{ fontWeight: 700, marginBottom: 6 }}>No se pudieron cargar los datos</div>
+              <div style={{ color: '#6b7280', fontSize: 14 }}>{error}</div>
+              <div style={{ marginTop: 8, fontSize: 13 }}>
                 Verifica que el archivo <code>public/apartments.json</code> exista en tu repo. En Vercel, configura:
                 <ul>
                   <li>Build: <code>npm run build</code></li>
@@ -254,7 +342,7 @@ export default function App(){
 
         <div className="card">
           <div>
-            <div style={{display:'flex', gap:8, flexWrap:'wrap', marginBottom:8}}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
               {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
                 <span
                   key={key}
@@ -330,7 +418,7 @@ export default function App(){
             </div>
           </div>
 
-          <div style={{display:'flex',gap:8,alignItems:'center'}}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <button
               className="button"
               onClick={() => {
@@ -348,7 +436,7 @@ export default function App(){
           </div>
         </div>
 
-        <div className="grid" style={{marginTop:14}}>
+        <div className="grid" style={{ marginTop: 14 }}>
           {items.length ? items.map(a => {
             const statusKey = normalizeStatus(a)
             const status = STATUS_CONFIG[statusKey]
@@ -363,18 +451,18 @@ export default function App(){
             return (
               <div
                 key={a.id}
-                className="card"
+                className="card unit-card-fixed"
                 style={{
                   background: status.cardBg,
                   border: `1px solid ${status.cardBorder}`,
                   opacity: 1
                 }}
               >
-                <div>
-                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8}}>
+                <div className="unit-info-fixed">
+                  <div className="unit-header-fixed">
                     <div
                       className="title-tap"
-                      style={{fontWeight:700,fontSize:16}}
+                      style={{ fontWeight: 700, fontSize: 16 }}
                       onClick={() => openPlano(a)}
                     >
                       {a.id}
@@ -392,23 +480,29 @@ export default function App(){
                     </span>
                   </div>
 
-                  <div style={{marginTop:8,display:'grid',gridTemplateColumns:'repeat(2, minmax(0,1fr))',gap:6,fontSize:14}}>
+                  <div className="unit-details-fixed">
                     <div><strong>Nivel:</strong> {a.nivel}</div>
                     <div><strong>Habitaciones:</strong> {a.habitaciones}</div>
                     <div><strong>Área:</strong> {Number(a.area_m2).toFixed(2)} m²</div>
-                    <div><strong>Precio:</strong> {formatUSD(a.precio_usd)}</div>
+
+                    <div className="unit-price-fixed">
+                      <strong>Precio:</strong>{' '}
+                      <span className="unit-price-value-fixed">
+                        {formatUSD(a.precio_usd)}
+                      </span>
+                    </div>
                   </div>
 
                   {statusKey === 'consulta_disponibilidad' && (
-                    <div style={{marginTop:10, fontSize:13, color:'#92400e'}}>
+                    <div style={{ marginTop: 10, fontSize: 13, color: '#92400e' }}>
                       Unidad con reserva en seguimiento. Consulte disponibilidad actual.
                     </div>
                   )}
                 </div>
 
-                <div style={{display:'flex',alignItems:'center'}}>
+                <div className="unit-actions-fixed">
                   {canInquire ? (
-                    <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+                    <div className="unit-buttons-fixed">
                       <button className="button" onClick={() => openPlano(a)}>
                         Ver plano
                       </button>
@@ -431,7 +525,7 @@ export default function App(){
               </div>
             )
           }) : !error && (
-            <div style={{opacity:.7}}>No hay resultados con esos filtros.</div>
+            <div style={{ opacity: .7 }}>No hay resultados con esos filtros.</div>
           )}
         </div>
 
@@ -442,7 +536,7 @@ export default function App(){
         <div className="modal-card" role="dialog" aria-modal="true" aria-labelledby="planoTitulo">
           <div className="modal-head">
             <div id="planoTitulo" className="modal-title">Plano · {modal.id}</div>
-            <div style={{display:'flex',gap:8}}>
+            <div style={{ display: 'flex', gap: 8 }}>
               <button className="iconbtn" title="Acercar" onClick={zoomIn}>＋</button>
               <button className="iconbtn" title="Alejar" onClick={zoomOut}>－</button>
               <button className="iconbtn" title="Cerrar" onClick={closePlano}>✕</button>
@@ -456,7 +550,7 @@ export default function App(){
                 alt="Plano del apartamento"
                 onPointerDown={onPointerDown}
                 onClick={onClickImg}
-                style={{ transform:`translate(${modal.x}px, ${modal.y}px) scale(${modal.zoom})` }}
+                style={{ transform: `translate(${modal.x}px, ${modal.y}px) scale(${modal.zoom})` }}
               />
             )}
           </div>
