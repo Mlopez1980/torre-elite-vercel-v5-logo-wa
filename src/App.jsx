@@ -496,7 +496,7 @@ if (
   Number(a.habitaciones) === 1
 ) {
   commercialTags.push('Último 1 hab. en nivel alto')
-  commercialTags.push('Vista superior · entrada ideal')
+  commercialTags.push('Vista superior')
 }
             return (
               <div
