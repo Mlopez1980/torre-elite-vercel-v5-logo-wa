@@ -55,7 +55,7 @@ function normalizeStatus(apartment) {
   return apartment?.disponible ? 'disponible' : 'reservado'
 }
 
-export default function App(){
+export default function App() {
   const [data, setData] = useState([])
   const [error, setError] = useState('')
   const [search, setSearch] = useState('')
@@ -65,31 +65,34 @@ export default function App(){
   const [areaMax, setAreaMax] = useState('')
   const [estado, setEstado] = useState('')
   const [selectedLevel, setSelectedLevel] = useState('')
-  const [modal, setModal] = useState({open:false, id:'', src:'', zoom:1, x:0, y:0})
+  const [modal, setModal] = useState({ open: false, id: '', src: '', zoom: 1, x: 0, y: 0 })
+  const [lastTap, setLastTap] = useState(0)
 
-  useEffect(()=>{
-    async function load(){
-      const base = (import.meta.env.BASE_URL || '/')
+  useEffect(() => {
+    async function load() {
+      const base = import.meta.env.BASE_URL || '/'
       const candidates = [base + 'apartments.json', '/apartments.json', 'apartments.json']
       let lastErr = null
 
-      for(const url of candidates){
+      for (const url of candidates) {
         try {
-          const res = await fetch(url, {cache:'no-cache'})
-          if(!res.ok) {
+          const res = await fetch(url, { cache: 'no-cache' })
+
+          if (!res.ok) {
             lastErr = new Error(`HTTP ${res.status} on ${url}`)
             continue
           }
 
           const json = await res.json()
-          if(Array.isArray(json)){
+
+          if (Array.isArray(json)) {
             setData(json)
             setError('')
             return
           } else {
             lastErr = new Error(`Formato invalido en ${url}`)
           }
-        } catch(e){
+        } catch (e) {
           lastErr = e
         }
       }
@@ -101,7 +104,7 @@ export default function App(){
   }, [])
 
   const niveles = useMemo(
-    () => Array.from(new Set(data.map(a => a.nivel))).sort((a,b)=>a-b),
+    () => Array.from(new Set(data.map(a => a.nivel))).sort((a, b) => a - b),
     [data]
   )
 
@@ -109,61 +112,63 @@ export default function App(){
     const q = search.trim().toLowerCase()
     const statusKey = normalizeStatus(a)
 
-    if(q){
+    if (q) {
       const hay = (a.id + ' ' + (a.descripcion || '')).toLowerCase()
-      if(!hay.includes(q)) return false
+      if (!hay.includes(q)) return false
     }
 
-    if(nivelSelect && String(a.nivel) !== String(nivelSelect)) return false
-    if(selectedLevel && String(a.nivel) !== String(selectedLevel)) return false
-    if(habs && String(a.habitaciones) !== String(habs)) return false
+    if (nivelSelect && String(a.nivel) !== String(nivelSelect)) return false
+    if (selectedLevel && String(a.nivel) !== String(selectedLevel)) return false
+    if (habs && String(a.habitaciones) !== String(habs)) return false
 
     const amin = parseFloat(areaMin)
-    if(!Number.isNaN(amin) && a.area_m2 < amin) return false
+    if (!Number.isNaN(amin) && a.area_m2 < amin) return false
 
     const amax = parseFloat(areaMax)
-    if(!Number.isNaN(amax) && a.area_m2 > amax) return false
+    if (!Number.isNaN(amax) && a.area_m2 > amax) return false
 
-    if(estado && statusKey !== estado) return false
+    if (estado && statusKey !== estado) return false
 
     return true
   }), [data, search, nivelSelect, selectedLevel, habs, areaMin, areaMax, estado])
 
-  function formatUSD(v){
+  function formatUSD(v) {
     if (v === null || v === undefined || Number.isNaN(v)) return '—'
+
     try {
       return new Intl.NumberFormat('es-HN', {
-        style:'currency',
-        currency:'USD',
-        minimumFractionDigits:2
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
       }).format(v)
     } catch {
       return `$${v}`
     }
   }
 
-  function openPlano(a){
+  function openPlano(a) {
     const src = a.plano ? ('/' + a.plano) : ('/planos/' + a.id + '.png')
-    setModal({open:true, id:a.id, src, zoom:1, x:0, y:0})
+    setModal({ open: true, id: a.id, src, zoom: 1, x: 0, y: 0 })
   }
 
-  function closePlano(){
-    setModal(m => ({...m, open:false}))
+  function closePlano() {
+    setModal(m => ({ ...m, open: false }))
   }
 
-  function zoomIn(){
-    setModal(m => ({...m, zoom: Math.min(m.zoom + 0.1, 3)}))
+  function zoomIn() {
+    setModal(m => ({ ...m, zoom: Math.min(m.zoom + 0.1, 3) }))
   }
 
-  function zoomOut(){
-    setModal(m => ({...m, zoom: Math.max(m.zoom - 0.1, 0.5)}))
+  function zoomOut() {
+    setModal(m => ({ ...m, zoom: Math.max(m.zoom - 0.1, 0.5) }))
   }
 
-  function onPointerDown(e){
+  function onPointerDown(e) {
     const startX = e.clientX - modal.x
     const startY = e.clientY - modal.y
 
-    function move(ev){
+    function move(ev) {
       setModal(m => ({
         ...m,
         x: ev.clientX - startX,
@@ -171,7 +176,7 @@ export default function App(){
       }))
     }
 
-    function up(){
+    function up() {
       window.removeEventListener('pointermove', move)
       window.removeEventListener('pointerup', up)
     }
@@ -180,11 +185,10 @@ export default function App(){
     window.addEventListener('pointerup', up)
   }
 
-  const [lastTap, setLastTap] = useState(0)
-
-  function onClickImg(){
+  function onClickImg() {
     const now = Date.now()
-    if(now - lastTap < 300){
+
+    if (now - lastTap < 300) {
       setModal(m => ({
         ...m,
         zoom: m.zoom >= 2 ? 1 : Math.min(m.zoom + 0.5, 3),
@@ -192,32 +196,136 @@ export default function App(){
         y: 0
       }))
     }
+
     setLastTap(now)
   }
 
   return (
     <>
+      <style>{`
+        .te-apartment-card {
+          border-radius: 18px;
+          padding: 18px;
+          min-height: 180px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+        }
+
+        .te-apartment-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 14px;
+        }
+
+        .te-apartment-id {
+          font-weight: 800;
+          font-size: 18px;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+
+        .te-apartment-details {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 10px 16px;
+          font-size: 15px;
+          line-height: 1.2;
+        }
+
+        .te-detail-label {
+          display: block;
+          font-weight: 800;
+          margin-bottom: 3px;
+        }
+
+        .te-price-box {
+          margin-top: 14px;
+          padding-top: 10px;
+          border-top: 1px solid rgba(15, 23, 42, 0.12);
+          font-size: 16px;
+          line-height: 1.25;
+        }
+
+        .te-price-label {
+          font-weight: 800;
+          margin-right: 6px;
+        }
+
+        .te-price-value {
+          white-space: nowrap;
+          font-weight: 500;
+        }
+
+        .te-apartment-actions {
+          margin-top: 16px;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        .te-apartment-actions .button {
+          white-space: nowrap;
+        }
+
+        .te-consulta-note {
+          margin-top: 10px;
+          font-size: 13px;
+          color: #92400e;
+          line-height: 1.35;
+        }
+
+        @media (max-width: 900px) {
+          .te-apartment-details {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 520px) {
+          .te-apartment-card {
+            min-height: auto;
+          }
+
+          .te-apartment-details {
+            grid-template-columns: 1fr;
+          }
+
+          .te-apartment-actions {
+            justify-content: flex-start;
+          }
+
+          .te-price-value {
+            white-space: normal;
+          }
+        }
+      `}</style>
+
       <div className="header">
         <div className="container">
-          <div style={{display:"flex",alignItems:"center",gap:12}}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <img
               src="/logo-honduras-constructores.png"
               alt="Honduras Constructores"
-              style={{height:40}}
+              style={{ height: 40 }}
             />
-            <h1 style={{margin:0}}>Torre Élite · Disponibilidad de apartamentos</h1>
+            <h1 style={{ margin: 0 }}>Torre Élite · Disponibilidad de apartamentos</h1>
           </div>
         </div>
       </div>
 
       <div className="container">
-
         {error && (
-          <div className="card" style={{borderColor:'#fecaca', background:'#fff1f2'}}>
+          <div className="card" style={{ borderColor: '#fecaca', background: '#fff1f2' }}>
             <div>
-              <div style={{fontWeight:700, marginBottom:6}}>No se pudieron cargar los datos</div>
-              <div style={{color:'#6b7280', fontSize:14}}>{error}</div>
-              <div style={{marginTop:8, fontSize:13}}>
+              <div style={{ fontWeight: 700, marginBottom: 6 }}>No se pudieron cargar los datos</div>
+              <div style={{ color: '#6b7280', fontSize: 14 }}>{error}</div>
+              <div style={{ marginTop: 8, fontSize: 13 }}>
                 Verifica que el archivo <code>public/apartments.json</code> exista en tu repo. En Vercel, configura:
                 <ul>
                   <li>Build: <code>npm run build</code></li>
@@ -254,7 +362,7 @@ export default function App(){
 
         <div className="card">
           <div>
-            <div style={{display:'flex', gap:8, flexWrap:'wrap', marginBottom:8}}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
               {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
                 <span
                   key={key}
@@ -330,7 +438,7 @@ export default function App(){
             </div>
           </div>
 
-          <div style={{display:'flex',gap:8,alignItems:'center'}}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <button
               className="button"
               onClick={() => {
@@ -348,7 +456,7 @@ export default function App(){
           </div>
         </div>
 
-        <div className="grid" style={{marginTop:14}}>
+        <div className="grid" style={{ marginTop: 14 }}>
           {items.length ? items.map(a => {
             const statusKey = normalizeStatus(a)
             const status = STATUS_CONFIG[statusKey]
@@ -363,7 +471,7 @@ export default function App(){
             return (
               <div
                 key={a.id}
-                className="card"
+                className="te-apartment-card"
                 style={{
                   background: status.cardBg,
                   border: `1px solid ${status.cardBorder}`,
@@ -371,10 +479,9 @@ export default function App(){
                 }}
               >
                 <div>
-                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8}}>
+                  <div className="te-apartment-header">
                     <div
-                      className="title-tap"
-                      style={{fontWeight:700,fontSize:16}}
+                      className="te-apartment-id title-tap"
                       onClick={() => openPlano(a)}
                     >
                       {a.id}
@@ -385,30 +492,46 @@ export default function App(){
                       style={{
                         background: status.badgeBg,
                         color: status.badgeText,
-                        border: `1px solid ${status.badgeBg}`
+                        border: `1px solid ${status.badgeBg}`,
+                        flexShrink: 0
                       }}
                     >
                       {status.label}
                     </span>
                   </div>
 
-                  <div style={{marginTop:8,display:'grid',gridTemplateColumns:'repeat(2, minmax(0,1fr))',gap:6,fontSize:14}}>
-                    <div><strong>Nivel:</strong> {a.nivel}</div>
-                    <div><strong>Habitaciones:</strong> {a.habitaciones}</div>
-                    <div><strong>Área:</strong> {Number(a.area_m2).toFixed(2)} m²</div>
-                    <div><strong>Precio:</strong> {formatUSD(a.precio_usd)}</div>
+                  <div className="te-apartment-details">
+                    <div>
+                      <span className="te-detail-label">Nivel:</span>
+                      <span>{a.nivel}</span>
+                    </div>
+
+                    <div>
+                      <span className="te-detail-label">Habitaciones:</span>
+                      <span>{a.habitaciones}</span>
+                    </div>
+
+                    <div>
+                      <span className="te-detail-label">Área:</span>
+                      <span>{Number(a.area_m2).toFixed(2)} m²</span>
+                    </div>
+                  </div>
+
+                  <div className="te-price-box">
+                    <span className="te-price-label">Precio:</span>
+                    <span className="te-price-value">{formatUSD(a.precio_usd)}</span>
                   </div>
 
                   {statusKey === 'consulta_disponibilidad' && (
-                    <div style={{marginTop:10, fontSize:13, color:'#92400e'}}>
+                    <div className="te-consulta-note">
                       Unidad con reserva en seguimiento. Consulte disponibilidad actual.
                     </div>
                   )}
                 </div>
 
-                <div style={{display:'flex',alignItems:'center'}}>
+                <div className="te-apartment-actions">
                   {canInquire ? (
-                    <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+                    <>
                       <button className="button" onClick={() => openPlano(a)}>
                         Ver plano
                       </button>
@@ -421,7 +544,7 @@ export default function App(){
                       >
                         {statusKey === 'consulta_disponibilidad' ? 'Consultar' : 'Quiero este'}
                       </a>
-                    </div>
+                    </>
                   ) : (
                     <button className="button" onClick={() => openPlano(a)}>
                       Ver plano
@@ -431,7 +554,7 @@ export default function App(){
               </div>
             )
           }) : !error && (
-            <div style={{opacity:.7}}>No hay resultados con esos filtros.</div>
+            <div style={{ opacity: .7 }}>No hay resultados con esos filtros.</div>
           )}
         </div>
 
@@ -442,7 +565,7 @@ export default function App(){
         <div className="modal-card" role="dialog" aria-modal="true" aria-labelledby="planoTitulo">
           <div className="modal-head">
             <div id="planoTitulo" className="modal-title">Plano · {modal.id}</div>
-            <div style={{display:'flex',gap:8}}>
+            <div style={{ display: 'flex', gap: 8 }}>
               <button className="iconbtn" title="Acercar" onClick={zoomIn}>＋</button>
               <button className="iconbtn" title="Alejar" onClick={zoomOut}>－</button>
               <button className="iconbtn" title="Cerrar" onClick={closePlano}>✕</button>
@@ -456,7 +579,7 @@ export default function App(){
                 alt="Plano del apartamento"
                 onPointerDown={onPointerDown}
                 onClick={onClickImg}
-                style={{ transform:`translate(${modal.x}px, ${modal.y}px) scale(${modal.zoom})` }}
+                style={{ transform: `translate(${modal.x}px, ${modal.y}px) scale(${modal.zoom})` }}
               />
             )}
           </div>
