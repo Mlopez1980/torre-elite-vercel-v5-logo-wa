@@ -335,7 +335,28 @@ export default function App() {
             </div>
           </div>
         )}
+<div className="te-availability-banner">
+  <div>
+    <div className="te-banner-kicker">
+      Disponibilidad limitada
+    </div>
 
+    <h2 className="te-banner-title">
+      Torre Élite cuenta con solo 32 apartamentos.
+    </h2>
+
+    <p className="te-banner-text">
+      Las unidades disponibles pueden cambiar según reservas en proceso.
+      Seleccioná el apartamento de tu interés y consultá disponibilidad actual con un asesor.
+    </p>
+  </div>
+
+  <div className="te-banner-summary">
+    <span className="te-banner-pill">Últimas unidades disponibles</span>
+    <span className="te-banner-pill">Visitas con cita previa</span>
+    <span className="te-banner-pill">Precios sujetos a confirmación</span>
+  </div>
+</div>
         <div className="level-tabs" role="tablist">
           <button
             className={'level-tab' + (selectedLevel === '' ? ' active' : '')}
