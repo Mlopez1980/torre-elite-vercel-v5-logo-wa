@@ -488,7 +488,16 @@ export default function App() {
               statusKey === 'consulta_disponibilidad'
                 ? `Hola, me interesa consultar la disponibilidad actual del apartamento ${a.id}`
                 : `Hola, me interesa el apartamento ${a.id}`
+const commercialTags = []
 
+if (
+  statusKey === 'disponible' &&
+  Number(a.nivel) === 5 &&
+  Number(a.habitaciones) === 1
+) {
+  commercialTags.push('Último 1 hab. en nivel alto')
+  commercialTags.push('Vista superior · entrada ideal')
+}
             return (
               <div
                 key={a.id}
@@ -542,7 +551,20 @@ export default function App() {
                     <span className="te-price-label">Precio:</span>
                     <span className="te-price-value">{formatUSD(a.precio_usd)}</span>
                   </div>
-
+{commercialTags.length > 0 && (
+  <div className="te-commercial-tags">
+    {commercialTags.map((tag, index) => (
+      <span
+        key={tag}
+        className={`te-commercial-tag ${index === 0 ? 'dark' : 'gold'}`}
+      >
+        {tag}
+      </span>
+    ))}
+  </div>
+)}
+                  
+                  
                   {statusKey === 'consulta_disponibilidad' && (
                     <div className="te-consulta-note">
                       Unidad con reserva en seguimiento. Consulte disponibilidad actual.
