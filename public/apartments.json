@@ -134,7 +134,8 @@
     "area_m2": 82.79,
     "habitaciones": 2,
     "precio_usd": null,
-    "disponible": "entregado"
+    "disponible": false,
+    "estado": "entregado"
   },
   {
     "id": "3E",
