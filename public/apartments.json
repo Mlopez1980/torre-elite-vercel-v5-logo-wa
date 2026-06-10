@@ -98,7 +98,8 @@
     "area_m2": 44.55,
     "habitaciones": 1,
     "precio_usd": null,
-    "disponible": "entregado"
+    "disponible": false,
+    "estado": "entregado"
   },
   {
     "id": "3A",
