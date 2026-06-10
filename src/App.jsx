@@ -498,7 +498,17 @@ if (
   commercialTags.push('Último 1 hab. en nivel alto')
   commercialTags.push('Vista superior')
 }
-            return (
+  const highlightedInvestmentUnits = ['1E', '2E']
+
+const isHighlightedInvestmentUnit =
+  statusKey === 'disponible' &&
+  highlightedInvestmentUnits.includes(String(a.id).toUpperCase())
+
+if (isHighlightedInvestmentUnit) {
+  commercialTags.push('Relación área/precio destacada')
+  commercialTags.push('Ideal para inversión')
+}  
+  return (
               <div
                 key={a.id}
                 className="te-apartment-card"
@@ -548,9 +558,17 @@ if (
                   </div>
 
                   <div className="te-price-box">
-                    <span className="te-price-label">Precio:</span>
-                    <span className="te-price-value">{formatUSD(a.precio_usd)}</span>
-                  </div>
+  <div>
+    <span className="te-price-label">Precio:</span>
+    <span className="te-price-value">{formatUSD(a.precio_usd)}</span>
+  </div>
+
+  {isHighlightedInvestmentUnit && a.precio_usd && a.area_m2 && (
+    <div style={{ marginTop: 6, fontSize: 13, color: '#4b5563' }}>
+      Referencia: {formatUSD(a.precio_usd / a.area_m2)} / m² aprox.
+    </div>
+  )}
+</div>
 {commercialTags.length > 0 && (
   <div className="te-commercial-tags">
     {commercialTags.map((tag, index) => (
