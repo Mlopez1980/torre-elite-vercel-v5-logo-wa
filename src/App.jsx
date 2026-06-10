@@ -26,7 +26,7 @@ const STATUS_CONFIG = {
     showBlink: false,
   },
   consulta_disponibilidad: {
-    label: 'Consulta disponibilidad',
+    label: 'En proceso de reserva',
     cardBg: '#fffbeb',
     cardBorder: '#f59e0b',
     badgeBg: '#f59e0b',
