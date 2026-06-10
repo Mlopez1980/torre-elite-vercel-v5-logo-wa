@@ -119,3 +119,33 @@ h1{margin:0; font-size:20px; letter-spacing:.3px}
     font-size:19px;
   }
 }
+/* Etiquetas comerciales por apartamento */
+.te-commercial-tags{
+  margin-top:12px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.te-commercial-tag{
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:800;
+  line-height:1;
+  white-space:nowrap;
+}
+
+.te-commercial-tag.dark{
+  background:#111827;
+  color:#ffffff;
+  border:1px solid #111827;
+}
+
+.te-commercial-tag.gold{
+  background:#fef3c7;
+  color:#92400e;
+  border:1px solid #f59e0b;
+}
