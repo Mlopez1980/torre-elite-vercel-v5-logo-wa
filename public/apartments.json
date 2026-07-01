@@ -231,8 +231,8 @@
     "nivel": 5,
     "area_m2": 46.0,
     "habitaciones": 1,
-    "precio_usd": 125000,
-    "disponible": true
+    "precio_usd": null,
+    "disponible": false,
   },
   {
     "id": "5D",
