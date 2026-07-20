@@ -39,8 +39,8 @@
     "nivel": 1,
     "area_m2": 82.79,
     "habitaciones": 2,
-    "precio_usd": null,
-    "disponible": false
+    "precio_usd": 190000,
+    "disponible": true
   },
   {
     "id": "1F",
